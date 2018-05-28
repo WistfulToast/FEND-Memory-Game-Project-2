@@ -8,11 +8,36 @@ const suits = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor","fa fa-bol
 /* Create the individual cards */
 const cardContainer = document.querySelector(".deck");
 
+let flippedCards = [];
+
 for(let i = 0; i < suits.length; i++) {
 	const card = document.createElement("li");
 	card.classList.add ("card");
-	card.innerHTML = "<i class'" + suits[i] + "'</i>";
+	card.innerHTML = `<i class ="${suits[i]}"> </i>`;
 	cardContainer.appendChild(card);
+
+/* Create the 'clicking' event */
+card.addEventListener("click", function() {
+	/* Card flipped */
+	if(flippedCards.length === 1) {
+
+	card.classList.add("show", "open");
+	flippedCards.push(this);
+
+	/* Comparing 2 flipped cards */
+	if(this.innerHTML === flippedCards[0].innerHTML) {
+		console.log("You have a match!")
+	} else {
+		console.log("No match!  Try again!");
+	}
+	
+	} else {
+	/*No cards flipped */
+	card.classList.add("show","open");
+	flippedCards.push(this);
+	} 
+
+})
 }
 
 /*
