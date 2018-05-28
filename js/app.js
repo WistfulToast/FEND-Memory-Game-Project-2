@@ -9,6 +9,7 @@ const suits = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor","fa fa-bol
 const cardContainer = document.querySelector(".deck");
 
 let flippedCards = [];
+let matchedCards = [];
 
 for(let i = 0; i < suits.length; i++) {
 	const card = document.createElement("li");
@@ -18,27 +19,50 @@ for(let i = 0; i < suits.length; i++) {
 
 /* Create the 'clicking' event */
 card.addEventListener("click", function() {
-	/* Card flipped */
+
+/* Card flipped */
 	if(flippedCards.length === 1) {
 
+		const selectedCard = this;
+		const priorCard = flippedCards[0];
 	card.classList.add("show", "open");
 	flippedCards.push(this);
 
-	/* Comparing 2 flipped cards */
-	if(this.innerHTML === flippedCards[0].innerHTML) {
-		console.log("You have a match!")
-	} else {
-		console.log("No match!  Try again!");
-	}
+/* Comparing 2 flipped cards */
+	if(selectedCard.innerHTML === priorCard.innerHTML) {
+		selectedCard.classList.add("match");
+		priorCard.classList.add("match");
+
+		matchedCards.push(selectedCard, priorCard);
+
+		flippedCards = [];
+
+/* Status check */
+	isOver();
+
+} 	else {
+		selectedCard.classList.remove("open" , "show");
+		priorCard.classList.remove("open" , "show");
+
+		flippedCards = [];
+}
 	
-	} else {
-	/*No cards flipped */
+} 	else {
+/*No cards flipped */
 	card.classList.add("show","open");
 	flippedCards.push(this);
 	} 
 
 })
 }
+
+function isOver() {
+	if(matchedCards.length === suits.length) {
+		alert("Game Over.  You Win!");
+}
+
+}
+
 
 /*
  * Display the cards on the page
