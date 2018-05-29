@@ -34,7 +34,16 @@ card.addEventListener("click", function() {
 	card.classList.add("show", "open");
 	flippedCards.push(this);
 
-/* Comparing 2 flipped cards */
+	check(selectedCard, priorCard);	
+} 	else {
+/*No cards flipped*/
+	card.classList.add("show","open");
+	flippedCards.push(this);
+	} 
+
+});
+}
+function check (selectedCard, priorCard) {
 	if(selectedCard.innerHTML === priorCard.innerHTML) {
 		selectedCard.classList.add("match");
 		priorCard.classList.add("match");
@@ -43,25 +52,18 @@ card.addEventListener("click", function() {
 
 		flippedCards = [];
 
-/* Status check */
+//Status check
 	isOver();
 
-} 	else {
-		setTimeout(function() {
+}	else {
+	setTimeout(function(){
 
-		selectedCard.classList.remove("open" , "show");
-		priorCard.classList.remove("open" , "show");
+		selectedCard.classList.remove("open", "show");
+		priorCard.classList.remove("open", "show");
 		flippedCards = [];
 	}, 750);
-}
-	
-} 	else {
-/*No cards flipped */
-	card.classList.add("show","open");
-	flippedCards.push(this);
-	} 
 
-})
+	}
 }
 
 function isOver() {
