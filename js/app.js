@@ -11,13 +11,19 @@ const cardContainer = document.querySelector(".deck");
 let flippedCards = [];
 let matchedCards = [];
 
+function start() {
 for(let i = 0; i < suits.length; i++) {
 	const card = document.createElement("li");
-	card.classList.add ("card");
+	card.classList.add("card");
 	card.innerHTML = `<i class ="${suits[i]}"> </i>`;
 	cardContainer.appendChild(card);
 
-/* Create the 'clicking' event */
+	click(card);
+	}
+}
+
+/*Create the 'clicking' event */
+function click(card) {
 card.addEventListener("click", function() {
 
 /* Card flipped */
@@ -41,10 +47,12 @@ card.addEventListener("click", function() {
 	isOver();
 
 } 	else {
+		setTimeout(function() {
+
 		selectedCard.classList.remove("open" , "show");
 		priorCard.classList.remove("open" , "show");
-
 		flippedCards = [];
+	}, 750);
 }
 	
 } 	else {
@@ -62,6 +70,8 @@ function isOver() {
 }
 
 }
+ /*Start Game */
+start();
 
 
 /*
