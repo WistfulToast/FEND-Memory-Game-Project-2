@@ -31,13 +31,13 @@ card.addEventListener("click", function() {
 
 		const selectedCard = this;
 		const priorCard = flippedCards[0];
-	card.classList.add("show", "open");
+	card.classList.add("show", "open", "selected");
 	flippedCards.push(this);
 
 	check(selectedCard, priorCard);	
 } 	else {
 /*No cards flipped*/
-	card.classList.add("show","open");
+	card.classList.add("show","open", "selected");
 	flippedCards.push(this);
 	} 
 
@@ -52,7 +52,7 @@ function check (selectedCard, priorCard) {
 
 		flippedCards = [];
 
-//Status check
+/*Status check*/
 	isOver();
 
 }	else {
