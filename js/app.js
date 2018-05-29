@@ -58,8 +58,8 @@ function check (selectedCard, priorCard) {
 }	else {
 	setTimeout(function(){
 
-		selectedCard.classList.remove("open", "show");
-		priorCard.classList.remove("open", "show");
+		selectedCard.classList.remove("open", "show", "selected");
+		priorCard.classList.remove("open", "show", "selected");
 		flippedCards = [];
 	}, 750);
 
