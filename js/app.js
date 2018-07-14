@@ -37,9 +37,9 @@ function shuffle(array) {
  */
 
 
-function start() {
+function start() { 
+shuffle(suits); 
 for(let i = 0; i < suits.length; i++) {
-	const layout = shuffle(suits);
 	const card = document.createElement("li");
 	card.classList.add("card");
 	card.innerHTML = `<i class ="${suits[i]}"> </i>`;
@@ -48,7 +48,6 @@ for(let i = 0; i < suits.length; i++) {
 	click(card);
 	}
 }
-
 /*Create the 'clicking' event */
 function click(card) {
 card.addEventListener("click", function() {
@@ -89,20 +88,20 @@ function check (selectedCard, priorCard) {
 		priorCard.classList.remove("open", "show", "selected");
 	}, 750);
 		flippedCards = [];
-
 	}
 /*Making a Move*/
-	addMove();
+  addMove();
 	addScore();
-
 }
-
+  startTime();
 function isOver() {
 	if(matchedCards.length === suits.length) {
-		alert("Game Over.  You Win!  Would you like to play again?");
+    clearInterval(interval);
+       let finalTime = timer.innerHTML;
+		alert("Your final time is " + finalTime + ".  You're total number of moves is " + numOfMoves + ". " + "You achieved " + numOfStars + " stars!");
+    // Shows number of moves made, time, and rating
 	}
 }
-
 /*Adding Move to the Counter*/
 const numOfMovesContainer = document.querySelector(".moves");
 let numOfMoves = 0;
@@ -112,23 +111,43 @@ function addMove(){
 }
 
 /* Ratings */
-
-
-const starsContainer = document.querySelector(".stars");
+const starsContainer = document.querySelector('.stars');
 const star = '<li><i class="fa fa-star"></i></li>';
 starsContainer.innerHTML = star + star + star;
-function score() {
+function addScore() {
 
-    if(numOfMoves < 2) {
+    if(numOfMoves < 12) {
         starsContainer.innerHTML = star + star + star;
-    } else if(numOfMoves < 5) {
+        numOfStars = 3;
+    } else if(numOfMoves < 25) {
         starsContainer.innerHTML = star + star;
+        numOfStars = 2;
     } else {
         starsContainer.innerHTML = star;
+        numOfStars = 1;
     }
 }
+  let second = 0;
+  let minute = 0;
+  let hour = 0;
+  let timer = document.querySelector('.clock');
+  timer.innerHTML = '0 mins 0 secs';
 
-
+// Game timer
+function startTime() {
+  interval = setInterval(function() {
+    timer.innerHTML = minute + ' mins ' + second + ' secs';
+    second++;
+    if (second == 60) {
+      minute++;
+      second = 0;
+    }
+    if (minute == 60) {
+      hour++;
+      minute = 0;
+    }
+  }, 1000);
+}
 /* Restart Game */
 const gameRestart = document.querySelector(".restart");
 gameRestart.addEventListener("click", function()
@@ -140,45 +159,16 @@ gameRestart.addEventListener("click", function()
 	matchedCards = [];
 	numOfMoves = 0;
 	numOfMovesContainer.innerHTML = numOfMoves;
-	starsContainer.innerHTML = star + star + stars;
-
+	starsContainer.innerHTML = star + star + star;
+// Resets timer
+  let second = 0;
+  let minute = 0;
+  let hour = 0;
+  let timer = document.querySelector('.clock');
+  timer.innerHTML = '0 mins 0 secs';
+ clearInterval(interval);
 /*Start Game */
-
  /*Reset Variables */
 });
-start();
 
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
-// Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-}
-
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+start ();
